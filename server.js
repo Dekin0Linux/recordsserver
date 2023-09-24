@@ -204,10 +204,9 @@ const requireAuth = require('./middleware/requireAuth');
 
 // //routes
 // //AUTH
-app.post('/signup', signup);
-app.post('/login', login);
-app.get('/logout', logout);
-app.get('/check-auth', checkAuth);
+app.get('/',(req,res)=>{
+  res.send('Testing route')
+})
 
 app.listen(5000,()=>{
   console.log('server running')
