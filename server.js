@@ -13,9 +13,6 @@
 // const animalController = require('./controllers/animalController');
 // const diseaseController = require('./controllers/diseaseController');
 // const transactionController = require('./controllers/transactionController');
-
-
-
 // const userController = require('./controllers/userController');
 // const invoiceController = require('./controllers/invoiceController');
 // const contactController = require('./controllers/contactController');
@@ -46,14 +43,14 @@
 // //DB connection
 // connectToDb();
 
-// //routes
+// //routes (DONE)
 // //AUTH
 // app.post('/signup', userController.signup);
 // app.post('/login', userController.login);
 // app.get('/logout', userController.logout);
 // app.get('/check-auth', userController.checkAuth);
 
-// //ANIMALS
+// //ANIMALS (DONE)
 // //get all items
 // app.get('/animals',  animalController.getAllAnimals);
 // //get a single item
@@ -65,7 +62,7 @@
 // //delete
 // app.delete('/animals/:id',  animalController.deleteAnimal);
 
-// //TRANSACTIONS
+// //TRANSACTIONS(DONE)
 // //get all items
 // app.get('/transactions',  transactionController.getAllTransactions);
 // //get a single item
@@ -89,7 +86,7 @@
 //   transactionController.deleteTransaction
 // );
 
-// //invoice
+// //invoice(DONE)
 // app.get('/invoices',  invoiceController.getAllInvoices);
 // //get a single item
 // app.get('/invoices/:id',  invoiceController.getSingleInvoice);
@@ -100,7 +97,7 @@
 // //delete
 // app.delete('/invoices/:id',  invoiceController.deleteInvoice);
 
-// //contact
+// //contact(DONE)
 // app.get('/contacts',  contactController.getAllContacts);
 // //create an item
 // app.post('/contacts',  contactController.createContact);
@@ -109,20 +106,20 @@
 // //delete
 // app.delete('/contacts/:id',  contactController.deleteContact);
 
-// //Employee
+// //Employee (DONE)
 // app.get('/employees',  employeeController.getAllEmployees);
 // app.get('/employees/:id',  employeeController.getSingleEmployee);
 // app.post('/employees',  employeeController.createEmployee);
 // app.put('/employees/:id',  employeeController.editEmployee);
 // app.delete('/employees/:id',  employeeController.deleteEmployee);
 
-// //Feed
+// //Feed(DONE)
 // app.get('/feeds',  feedController.getAllFeeds);
 // app.post('/feeds',  feedController.createFeed);
 // app.put('/feeds/:id',  feedController.editFeed);
 // app.delete('/feeds/:id',  feedController.deleteFeed);
 
-// //profile
+// //profile (DONE)
 // app.get('/profiles',  profileController.getAllProfiles);
 // app.post('/profiles',  profileController.createProfile);
 // app.put('/profiles/:id',  profileController.editProfile);
@@ -134,7 +131,6 @@
 // app.put('/inventories/:id',  inventoryController.editInventory);
 // app.delete(
 //   '/inventories/:id',
-  
 //   inventoryController.deleteInventory
 // );
 
@@ -204,13 +200,30 @@ const requireAuth = require('./middleware/requireAuth');
 
 const {signup,login,logout,checkAuth,} = require('./controllers/userController');
 
-// ANIMAL ROUTER
+//routes
 const animalRouter = require('./Routes/Animals')
+const transactionRouter = require('./Routes/Transaction')
+const invoiceRoute = require('./Routes/Invoice')
+const contactRoute = require('./Routes/Contact')
+const employeesRoute = require('./Routes/Employee')
+const feedRoute = require('./Routes/Feed')
+const profileRoute = require('./Routes/Profile')
+const inventoryRoute = require('./Routes/Inventory')
 
 const app = express()
 app.use(express.json())
 connectToDb()
 dotenv.config()
+// cors
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can specify specific origins instead of '*')
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT,PATCH, DELETE, OPTIONS"); // Allow the specified HTTP methods
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  ); // Allow the specified headers
+  next();
+});
 
 // //routes
 // //AUTH
@@ -221,6 +234,13 @@ app.get('/check-auth', checkAuth);
 // END OF AUTH //
 
 app.use('/animals',animalRouter) 
+app.use('/transactions',transactionRouter) 
+app.use('/invoices',invoiceRoute)
+app.use('/contacts',contactRoute)
+app.use('/employees',employeesRoute)
+app.use('/feeds',feedRoute)
+app.use('/profiles',profileRoute)
+app.use('/inventories',inventoryRoute)
 
 app.listen(5000,()=>{
   console.log('server running')

@@ -100,4 +100,4 @@ module.exports = {
   createTransaction,
   editTransaction,
   deleteTransaction,
-};
+} ;
