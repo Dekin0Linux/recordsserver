@@ -13,6 +13,9 @@
 // const animalController = require('./controllers/animalController');
 // const diseaseController = require('./controllers/diseaseController');
 // const transactionController = require('./controllers/transactionController');
+
+const {signup,login,logout,checkAuth,} = require('./controllers/userController');
+
 // const userController = require('./controllers/userController');
 // const invoiceController = require('./controllers/invoiceController');
 // const contactController = require('./controllers/contactController');
@@ -192,13 +195,19 @@
 // });
 
 
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const connectToDb = require('./config/connectToDb');
+const dotenv = require('dotenv')
+const requireAuth = require('./middleware/requireAuth');
 
-const app = express()
-
-app.get('/',(req,res)=>{
-  res.send('Hello')
-})
+// //routes
+// //AUTH
+app.post('/signup', signup);
+app.post('/login', login);
+app.get('/logout', logout);
+app.get('/check-auth', requireAuth, checkAuth);
 
 app.listen(5000,()=>{
   console.log('server running')
