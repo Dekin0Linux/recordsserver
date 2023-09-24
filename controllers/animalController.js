@@ -2,8 +2,9 @@ const Animal = require('../models/animal');
 
 const getAllAnimals = async (request, response) => {
   try {
-    const animals = await Animal.find({ user: request.user._id });
-    response.json({ animals });
+    // { user: request.body }
+    const animals = await Animal.find({user:request.body.user});
+    response.json(animals);
     //if the const and the object property's value match you don't need to repeat it
     //   const animals = await Animal.find();
     //   response.json({ animals: animals });
