@@ -202,11 +202,14 @@ const connectToDb = require('./config/connectToDb');
 const dotenv = require('dotenv')
 const requireAuth = require('./middleware/requireAuth');
 
+const app = express()
+
 // //routes
 // //AUTH
-app.get('/',(req,res)=>{
-  res.send('Testing route')
-})
+app.post('/signup', signup);
+app.post('/login', login);
+app.get('/logout', logout);
+app.get('/check-auth', checkAuth);
 
 app.listen(5000,()=>{
   console.log('server running')
