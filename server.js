@@ -216,7 +216,7 @@ connectToDb()
 dotenv.config()
 // cors
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin (you can specify specific origins instead of '*')
+  res.header("Access-Control-Allow-Origin", "https://frontend-fawn-pi-97.vercel.app"); // Allow requests from any origin (you can specify specific origins instead of '*')
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT,PATCH, DELETE, OPTIONS"); // Allow the specified HTTP methods
   res.header(
     "Access-Control-Allow-Headers",
